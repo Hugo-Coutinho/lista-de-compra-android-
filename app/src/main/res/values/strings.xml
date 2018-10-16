@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Lista de Compras</string>
+    <string name="title_activity_shop_list">shopList</string>
+    <string name="title_list">Lista</string>
+    <string name="title_add_product">Adicionar</string>
+    <string name="title_create_List">criar lista</string>
+
+    <string name="add_fragment">add</string>
+    <string name="list_fragment">listagem produtos</string>
+    <string name="create_fragment">create</string>
+    <string name="seja_bem_vindo">Seja bem vindo!!!</string>
+    <string name="product_save">produto salvo com sucesso!!</string>
+    <string name="txt_fontFamily">sans-serif-smallcaps</string>
+</resources>
