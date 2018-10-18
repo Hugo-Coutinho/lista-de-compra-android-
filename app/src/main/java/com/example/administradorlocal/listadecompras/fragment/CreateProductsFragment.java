@@ -1,13 +1,14 @@
 package com.example.administradorlocal.listadecompras.fragment;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -17,9 +18,10 @@ import com.example.administradorlocal.listadecompras.adapter.ProductListAdapter;
 import com.example.administradorlocal.listadecompras.entity.Product;
 import com.example.administradorlocal.listadecompras.views.shopList;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
+
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,9 +43,6 @@ public class CreateProductsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private List<Product> productList;
-    private List<Integer> imgProductInt;
-    private List<Bitmap> imgList;
-    private List<String> nameProductList;
     private View view;
 
     public CreateProductsFragment() {
@@ -71,6 +70,7 @@ public class CreateProductsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -85,66 +85,33 @@ public class CreateProductsFragment extends Fragment {
 
 
         this.productList = shopList.db.productDao().findAll();
-        ListView lv = (ListView) this.view.findViewById(R.id.listView);
+        ListView lv = this.view.findViewById(R.id.listView);
         lv.setAdapter(new ProductListAdapter(productList, this.getContext()));
+        Toolbar toolbar = this.view.findViewById(R.id.toolbar);
 
-        /*File directory = context.getFilesDir();
-        File file = new File(directory, filename);*/
-
-
-
-
-
-        /*this.imgList = getImage(productList);
-        preparingListImage(this.imgList);*/
-
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         // Inflate the layout for this fragment
         return this.view;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
 
-    /*private void preparingListImage(List<Bitmap> image) {
+            case R.id.i_createList:
 
-        for (int a = 0; a <= 3; a++) {
-            *//*Bitmap bitmap = BitmapFactory.decodeResource(getResources(), image.get(a));*//*
-            int width = image.get(a).getWidth();
-            int height = image.get(a).getHeight();
-            int[] store = new int[width * height];
-            image.get(a).getPixels(store, 0, width, 0, 0, width, height);
+                // Do onlick on menu action here
+                return true;
+
+            case R.id.i_delete_Products:
+
+                // Do onlick on menu action here
+                return true;
         }
-    }
-
-    public List<Bitmap> getImage(List<Product> p) {
-        List<Bitmap> zin = new ArrayList<>();
-        Bitmap zao;
-
-        for (Product x : p) {
-            zao = getImageConverted(x.getId());
-
-            zin.add(zao);
-        }
-        return zin;
+        return false;
     }
 
 
-    public Bitmap getImageConverted(int i) {
-
-        String qu = "select image from product where id=" + i;
-        Cursor cur = shopList.db.query(qu, null);
-
-        if (cur.moveToFirst()) {
-            byte[] imgByte = cur.getBlob(0);
-            cur.close();
-            return BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
-        }
-        if (cur != null && !cur.isClosed()) {
-            cur.close();
-        }
-
-        return null;
-    }
-
-*/
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

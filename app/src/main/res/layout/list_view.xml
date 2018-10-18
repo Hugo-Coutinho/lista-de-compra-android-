@@ -5,6 +5,13 @@
     android:orientation="horizontal">
 
 
+    <CheckBox
+        android:id="@+id/cb_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginRight="8dp" />
+
     <ImageView
         android:id="@+id/iv_show"
         android:layout_width="wrap_content"
@@ -18,10 +25,10 @@
 
     <TextView
         android:id="@+id/tv_showName"
-        style="@style/ContentText"
+        style="@style/lv_ContentText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_marginTop="70dp" />
+        android:layout_marginTop="70dp"
+        android:textColor="@color/colorPrimaryDark" />
 
 </LinearLayout>
