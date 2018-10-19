@@ -18,6 +18,7 @@ import com.example.administradorlocal.listadecompras.adapter.ProductListAdapter;
 import com.example.administradorlocal.listadecompras.entity.Product;
 import com.example.administradorlocal.listadecompras.views.shopList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.support.v7.app.AppCompatActivity;
@@ -44,6 +45,7 @@ public class CreateProductsFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private List<Product> productList;
     private View view;
+    private ProductListAdapter productListAdapter;
 
     public CreateProductsFragment() {
         // Required empty public constructor
@@ -86,7 +88,9 @@ public class CreateProductsFragment extends Fragment {
 
         this.productList = shopList.db.productDao().findAll();
         ListView lv = this.view.findViewById(R.id.listView);
-        lv.setAdapter(new ProductListAdapter(productList, this.getContext()));
+        productListAdapter = new ProductListAdapter(productList, this.getContext());
+
+        lv.setAdapter(productListAdapter);
         Toolbar toolbar = this.view.findViewById(R.id.toolbar);
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -96,19 +100,26 @@ public class CreateProductsFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        List<Product> products = productListAdapter.getProductsChecked();
+
         switch (item.getItemId()) {
 
             case R.id.i_createList:
-
                 // Do onlick on menu action here
                 return true;
 
             case R.id.i_delete_Products:
-
-                // Do onlick on menu action here
+                deleteAllProducts(products);
+                Toast.makeText(getContext(), "produtos deletados com sucesso!!", Toast.LENGTH_LONG).show();
                 return true;
         }
         return false;
+    }
+
+    private void deleteAllProducts(List<Product> p) {
+        for (Product x : p) {
+            shopList.db.productDao().delete(x);
+        }
     }
 
 
