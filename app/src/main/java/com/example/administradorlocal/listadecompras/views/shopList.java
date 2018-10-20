@@ -1,8 +1,6 @@
 package com.example.administradorlocal.listadecompras.views;
 
 import android.arch.persistence.room.Room;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,19 +9,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administradorlocal.listadecompras.R;
-import com.example.administradorlocal.listadecompras.entity.Product;
 import com.example.administradorlocal.listadecompras.fragment.AddProductsFragment;
 import com.example.administradorlocal.listadecompras.fragment.CreateProductsFragment;
 import com.example.administradorlocal.listadecompras.fragment.ListProductsFragment;
 import com.example.administradorlocal.listadecompras.persistence.Database;
 
-import java.util.List;
 
 public class shopList extends AppCompatActivity implements
         AddProductsFragment.OnFragmentInteractionListener,
@@ -34,6 +29,7 @@ public class shopList extends AppCompatActivity implements
     private ActionBar toolbar;
     public static Database db;
 
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -43,18 +39,18 @@ public class shopList extends AppCompatActivity implements
             switch (item.getItemId()) {
                 case R.id.navigation_list:
                     //mTextMessage.setText(R.string.title_list);
-                    toolbar.setTitle("lista");
+                    /*toolbar.setTitle("lista");*/
                     fragment = new ListProductsFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_add:
                     //mTextMessage.setText(R.string.title_add_product);
-                    toolbar.setTitle("add");
+                    /*toolbar.setTitle("add");*/
                     fragment = new AddProductsFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_create_list:
-                    toolbar.setTitle("criar lista");
+                    /*toolbar.setTitle("criar lista");*/
                     //mTextMessage.setText(R.string.title_create_List);
                     fragment = new CreateProductsFragment();
                     loadFragment(fragment);
@@ -70,14 +66,34 @@ public class shopList extends AppCompatActivity implements
         setContentView(R.layout.activity_shop_list);
 
         toolbar = getSupportActionBar();
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        mTextMessage = findViewById(R.id.message);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        db = Room.databaseBuilder(getApplicationContext(), Database.class, "productdb").allowMainThreadQueries().build();
+        db = Room.databaseBuilder(getApplicationContext(), Database.class, "productdb").allowMainThreadQueries().fallbackToDestructiveMigration().build();
 
-        toolbar.setTitle("shop");
+        /*toolbar.setTitle("shop");*/
         loadFragment(new ListProductsFragment());
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.i_createList:
+                return false;
+
+            case R.id.i_delete_Products:
+                return false;
+        }
+        return false;
     }
 
     public void loadFragment(Fragment fragment) {

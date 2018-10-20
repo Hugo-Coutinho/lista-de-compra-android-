@@ -24,6 +24,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.administradorlocal.listadecompras.R;
+import com.example.administradorlocal.listadecompras.controller.CtrlFragment;
+import com.example.administradorlocal.listadecompras.controller.IFragment;
 import com.example.administradorlocal.listadecompras.entity.Product;
 import com.example.administradorlocal.listadecompras.util.ImageManipulate;
 import com.example.administradorlocal.listadecompras.util.ImageManipulateImpl;
@@ -65,6 +67,7 @@ public class AddProductsFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private IFragment ctrlFragment;
 
     public AddProductsFragment() {
         // Required empty public constructor
@@ -111,6 +114,7 @@ public class AddProductsFragment extends Fragment {
 
 
         p = new Product();
+        this.ctrlFragment = new CtrlFragment();
         this.mBase = this.getContext().getApplicationContext();
         this.imageManipulate = new ImageManipulateImpl();
         this.validate = new ValidateImpl();
@@ -140,8 +144,7 @@ public class AddProductsFragment extends Fragment {
                     shopList.db.productDao().insertProduct(new Product(EditProductName.getText().toString(),
                             imageManipulate.getImagePath(mBase, EditProductName.getText().toString())));
                     Toast.makeText(getActivity(), messageToast, Toast.LENGTH_SHORT).show();
-
-                    goToFragment(new CreateProductsFragment());
+                    toFragment(new CreateProductsFragment());
                 } else {
                     messageToast = validate.imageNameFailedCheck(EditProductName.getText().toString(), img);
                     Toast.makeText(getActivity(), messageToast, Toast.LENGTH_SHORT).show();
@@ -154,20 +157,11 @@ public class AddProductsFragment extends Fragment {
         return this.view;
     }
 
-   /* private byte[] getBitmapAsByteArray(Bitmap bitmap) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
-        return outputStream.toByteArray();
-    }*/
 
-
-    private void goToFragment(Fragment frg) {
-
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.frame_container, frg);
-        ft.commit();
+    private void toFragment(Fragment frg) {
+        this.ctrlFragment.goToFragment(frg, this.getFragmentManager());
     }
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
