@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,10 +17,14 @@ import android.widget.ListView;
 
 import com.example.administradorlocal.listadecompras.R;
 import com.example.administradorlocal.listadecompras.adapter.ProductListAdapter;
+import com.example.administradorlocal.listadecompras.controller.CtrlFragment;
+import com.example.administradorlocal.listadecompras.controller.IFragment;
 import com.example.administradorlocal.listadecompras.entity.Product;
+import com.example.administradorlocal.listadecompras.entity.ShoppingList;
 import com.example.administradorlocal.listadecompras.views.shopList;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.support.v7.app.AppCompatActivity;
@@ -46,6 +52,7 @@ public class CreateProductsFragment extends Fragment {
     private List<Product> productList;
     private View view;
     private ProductListAdapter productListAdapter;
+    private IFragment ctrlFragment;
 
     public CreateProductsFragment() {
         // Required empty public constructor
@@ -86,6 +93,7 @@ public class CreateProductsFragment extends Fragment {
         this.view = inflater.inflate(R.layout.fragment_create_products, container, false);
 
 
+        this.ctrlFragment = new CtrlFragment();
         this.productList = shopList.db.productDao().findAll();
         ListView lv = this.view.findViewById(R.id.listView);
         productListAdapter = new ProductListAdapter(productList, this.getContext());
@@ -106,14 +114,24 @@ public class CreateProductsFragment extends Fragment {
 
             case R.id.i_createList:
                 // Do onlick on menu action here
+                createList(products);
                 return true;
 
             case R.id.i_delete_Products:
                 deleteAllProducts(products);
-                Toast.makeText(getContext(), "produtos deletados com sucesso!!", Toast.LENGTH_LONG).show();
+                ctrlFragment.goToFragment(new CreateProductsFragment(), this.getFragmentManager());
+                Toast.makeText(getContext(), "deletado com sucesso!!", Toast.LENGTH_LONG).show();
                 return true;
         }
         return false;
+    }
+
+    private void createList(List<Product> p) {
+        for (Product pr : p) {
+            /*shopList.db.ShoppingListDao().insertListProduct(new ShoppingList(pr.getName(), pr.getImage(), new Date()));*/
+            Date data = new Date();
+        }
+
     }
 
     private void deleteAllProducts(List<Product> p) {

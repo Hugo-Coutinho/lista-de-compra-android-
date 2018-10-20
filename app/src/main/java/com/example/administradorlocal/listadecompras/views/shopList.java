@@ -1,8 +1,6 @@
 package com.example.administradorlocal.listadecompras.views;
 
 import android.arch.persistence.room.Room;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,10 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.administradorlocal.listadecompras.R;
 import com.example.administradorlocal.listadecompras.fragment.AddProductsFragment;
@@ -33,6 +28,7 @@ public class shopList extends AppCompatActivity implements
     private TextView mTextMessage;
     private ActionBar toolbar;
     public static Database db;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -74,7 +70,7 @@ public class shopList extends AppCompatActivity implements
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        db = Room.databaseBuilder(getApplicationContext(), Database.class, "productdb").allowMainThreadQueries().build();
+        db = Room.databaseBuilder(getApplicationContext(), Database.class, "productdb").allowMainThreadQueries().fallbackToDestructiveMigration().build();
 
         /*toolbar.setTitle("shop");*/
         loadFragment(new ListProductsFragment());
@@ -99,7 +95,6 @@ public class shopList extends AppCompatActivity implements
         }
         return false;
     }
-
 
     public void loadFragment(Fragment fragment) {
         // load fragment
