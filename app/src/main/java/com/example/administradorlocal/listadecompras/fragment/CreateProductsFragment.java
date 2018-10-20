@@ -128,8 +128,7 @@ public class CreateProductsFragment extends Fragment {
 
     private void createList(List<Product> p) {
         for (Product pr : p) {
-            /*shopList.db.ShoppingListDao().insertListProduct(new ShoppingList(pr.getName(), pr.getImage(), new Date()));*/
-            Date data = new Date();
+            shopList.db.ShoppingListDao().insertListProduct(new ShoppingList(pr.getName(), pr.getImage(), new Date().getTime()));
         }
 
     }

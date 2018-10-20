@@ -29,15 +29,16 @@ public class ValidateImpl implements Validate {
             return false;
         }*/
 
-        return p == null ||
-                p != null && p.getName().length() <= 7 && p.getName() != name;
+        /*return p == null ||
+                p != null && p.getName().length() <= 7 && p.getName() != name;*/
+        return true;
     }
 
 
     @Override
     public boolean isNamevalid(String name) {
         if (isNameOk(name)) {
-            return name != null && name != "" && !name.isEmpty() && name.length() <= 7;
+            return name != null && name != "" && !name.isEmpty() && name.length() >= 7;
         }
         return false;
     }
@@ -58,7 +59,7 @@ public class ValidateImpl implements Validate {
 
         if (checkImage) {
             MESSAGE = "para salvar capture a foto por favor!";
-        } else if (name.length() > 7) {
+        } else if (name.length() < 7) {
             MESSAGE = "nome do produto tem que ser menor que 8";
 
         } else if (p != null) {

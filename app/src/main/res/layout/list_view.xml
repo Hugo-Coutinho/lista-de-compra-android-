@@ -17,7 +17,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:layout_marginRight="5dp"
         android:layout_marginBottom="30dp"
         android:minWidth="200dp"
         android:minHeight="100dp"
@@ -26,7 +25,7 @@
     <TextView
         android:id="@+id/tv_showName"
         style="@style/lv_ContentText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
         android:textColor="@color/colorPrimaryDark" />
