@@ -22,6 +22,9 @@ public interface ShoppingListDao {
     @Query("SELECT * FROM ShoppingList")
     List<ShoppingList> findAll();
 
+    @Query("DELETE FROM ShoppingList")
+    void deleteAll();
+
     @Update
     void update(ShoppingList p);
 
