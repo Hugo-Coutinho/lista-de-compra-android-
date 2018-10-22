@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.example.administradorlocal.listadecompras.R;
@@ -113,6 +114,15 @@ public class shopList extends AppCompatActivity implements
         }
         return false;
     }
+
+    @Override
+    public void onBackPressed() {
+
+        // Otherwise defer to system default behavior.
+        mBtmView.getMenu().findItem(R.id.navigation_list).setChecked(true);
+        loadFragment(new ListProductsFragment());
+    }
+
 
     public void loadFragment(Fragment fragment) {
         // load fragment
