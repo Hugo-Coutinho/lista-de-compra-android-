@@ -27,10 +27,11 @@ public class shopList extends AppCompatActivity implements
 
     private TextView mTextMessage;
     private ActionBar toolbar;
+    public static BottomNavigationView mBtmView;
     public static Database db;
 
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+    public BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
@@ -66,6 +67,7 @@ public class shopList extends AppCompatActivity implements
         setContentView(R.layout.activity_shop_list);
 
         toolbar = getSupportActionBar();
+        this.mBtmView = findViewById(R.id.navigation);
         mTextMessage = findViewById(R.id.message);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -74,6 +76,22 @@ public class shopList extends AppCompatActivity implements
 
         /*toolbar.setTitle("shop");*/
         loadFragment(new ListProductsFragment());
+    }
+
+    public static void setBottomNavigationViewChecked(Integer n) {
+
+        switch (n) {
+            case 0:
+                mBtmView.getMenu().findItem(R.id.navigation_list).setChecked(true);
+                return;
+            case 1:
+                mBtmView.getMenu().findItem(R.id.navigation_add).setChecked(true);
+                return;
+            case 2:
+                mBtmView.getMenu().findItem(R.id.navigation_create_list).setChecked(true);
+                return;
+
+        }
     }
 
 

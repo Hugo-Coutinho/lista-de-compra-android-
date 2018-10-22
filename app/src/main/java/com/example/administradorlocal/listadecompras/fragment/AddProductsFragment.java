@@ -27,6 +27,8 @@ import com.example.administradorlocal.listadecompras.R;
 import com.example.administradorlocal.listadecompras.controller.CtrlFragment;
 import com.example.administradorlocal.listadecompras.controller.IFragment;
 import com.example.administradorlocal.listadecompras.entity.Product;
+import com.example.administradorlocal.listadecompras.util.AlertDialogImpl;
+import com.example.administradorlocal.listadecompras.util.IAlertDialog;
 import com.example.administradorlocal.listadecompras.util.ImageManipulate;
 import com.example.administradorlocal.listadecompras.util.ImageManipulateImpl;
 import com.example.administradorlocal.listadecompras.util.Validate;
@@ -68,6 +70,7 @@ public class AddProductsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private IFragment ctrlFragment;
+    private IAlertDialog alertDialog;
 
     public AddProductsFragment() {
         // Required empty public constructor
@@ -114,6 +117,7 @@ public class AddProductsFragment extends Fragment {
 
 
         p = new Product();
+        this.alertDialog = new AlertDialogImpl();
         this.ctrlFragment = new CtrlFragment();
         this.mBase = this.getContext().getApplicationContext();
         this.imageManipulate = new ImageManipulateImpl();
@@ -144,10 +148,10 @@ public class AddProductsFragment extends Fragment {
                     shopList.db.productDao().insertProduct(new Product(EditProductName.getText().toString(),
                             imageManipulate.getImagePath(mBase, EditProductName.getText().toString())));
                     Toast.makeText(getActivity(), messageToast, Toast.LENGTH_SHORT).show();
-                    toFragment(new CreateProductsFragment());
+                    toFragment(new CreateProductsFragment(), 2);
                 } else {
                     messageToast = validate.imageNameFailedCheck(EditProductName.getText().toString(), img);
-                    Toast.makeText(getActivity(), messageToast, Toast.LENGTH_SHORT).show();
+                    alertDialog.alertPositiveButton(messageToast, getContext(), 1, null, getFragmentManager(), ctrlFragment);
                 }
 
             }
@@ -158,8 +162,8 @@ public class AddProductsFragment extends Fragment {
     }
 
 
-    private void toFragment(Fragment frg) {
-        this.ctrlFragment.goToFragment(frg, this.getFragmentManager());
+    private void toFragment(Fragment frg, Integer navigation) {
+        this.ctrlFragment.goToFragment(frg, this.getFragmentManager(), navigation);
     }
 
 
