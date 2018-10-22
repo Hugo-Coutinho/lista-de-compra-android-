@@ -1,15 +1,15 @@
 package com.example.administradorlocal.listadecompras.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +21,8 @@ import com.example.administradorlocal.listadecompras.controller.CtrlFragment;
 import com.example.administradorlocal.listadecompras.controller.IFragment;
 import com.example.administradorlocal.listadecompras.entity.Product;
 import com.example.administradorlocal.listadecompras.entity.ShoppingList;
+import com.example.administradorlocal.listadecompras.util.AlertDialogImpl;
+import com.example.administradorlocal.listadecompras.util.IAlertDialog;
 import com.example.administradorlocal.listadecompras.views.shopList;
 
 import java.util.ArrayList;
@@ -38,7 +40,7 @@ import android.widget.Toast;
  * Use the {@link CreateProductsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CreateProductsFragment extends Fragment {
+public class CreateProductsFragment extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -53,6 +55,7 @@ public class CreateProductsFragment extends Fragment {
     private View view;
     private ProductListAdapter productListAdapter;
     private IFragment ctrlFragment;
+    private IAlertDialog alertDialog;
 
     public CreateProductsFragment() {
         // Required empty public constructor
@@ -92,14 +95,15 @@ public class CreateProductsFragment extends Fragment {
 
         this.view = inflater.inflate(R.layout.fragment_create_products, container, false);
 
-
         this.ctrlFragment = new CtrlFragment();
+        this.alertDialog = new AlertDialogImpl();
         this.productList = shopList.db.productDao().findAll();
         ListView lv = this.view.findViewById(R.id.listView);
         productListAdapter = new ProductListAdapter(productList, this.getContext());
-
-        lv.setAdapter(productListAdapter);
         Toolbar toolbar = this.view.findViewById(R.id.toolbar);
+
+        toolbar.setTitle("criar lista de compra");
+        lv.setAdapter(productListAdapter);
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         // Inflate the layout for this fragment
@@ -114,19 +118,35 @@ public class CreateProductsFragment extends Fragment {
 
             case R.id.i_createList:
                 // Do onlick on menu action here
-                createList(products);
+                if (products.size() > 0) {
+                    createList(products);
+                    ctrlFragment.goToFragment(new ListProductsFragment(), this.getFragmentManager(), 0);
+                    Toast.makeText(getContext(), "lista criada com sucesso!!", Toast.LENGTH_LONG).show();
+                } else {
+                    this.alertDialog.alertPositiveButton("para criar a lista selecione os produtos", getContext(), 2, new CreateProductsFragment(), getFragmentManager(), ctrlFragment);
+                }
                 return true;
 
             case R.id.i_delete_Products:
-                deleteAllProducts(products);
-                ctrlFragment.goToFragment(new CreateProductsFragment(), this.getFragmentManager());
-                Toast.makeText(getContext(), "deletado com sucesso!!", Toast.LENGTH_LONG).show();
+
+                if (products.size() > 0) {
+                    deleteAllProducts(products);
+                    ctrlFragment.goToFragment(new CreateProductsFragment(), this.getFragmentManager(), 2);
+                    Toast.makeText(getContext(), "deletado com sucesso!!", Toast.LENGTH_LONG).show();
+                } else {
+                    this.alertDialog.alertPositiveButton("para deletar produtos os selecionem", getContext(), 2, new CreateProductsFragment(), getFragmentManager(), ctrlFragment);
+                }
                 return true;
         }
         return false;
     }
 
+    private void deleteList() {
+        shopList.db.ShoppingListDao().deleteAll();
+    }
+
     private void createList(List<Product> p) {
+        deleteList();
         for (Product pr : p) {
             shopList.db.ShoppingListDao().insertListProduct(new ShoppingList(pr.getName(), pr.getImage(), new Date().getTime()));
         }
@@ -134,8 +154,15 @@ public class CreateProductsFragment extends Fragment {
     }
 
     private void deleteAllProducts(List<Product> p) {
+        List<ShoppingList> shop = shopList.db.ShoppingListDao().findAll();
+
         for (Product x : p) {
             shopList.db.productDao().delete(x);
+            for (ShoppingList s : shop) {
+                if (s.getName().equals(x.getName())) {
+                    shopList.db.ShoppingListDao().delete(s);
+                }
+            }
         }
     }
 
@@ -162,6 +189,11 @@ public class CreateProductsFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        return false;
     }
 
     /**

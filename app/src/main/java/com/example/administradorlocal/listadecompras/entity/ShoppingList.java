@@ -21,6 +21,9 @@ public class ShoppingList {
     @ColumnInfo(name = "date")
     private long date;
 
+    @Ignore
+    public ShoppingList() {
+    }
 
     public ShoppingList(String name, String image, long date) {
         this.name = name;

@@ -15,30 +15,21 @@ public class ValidateImpl implements Validate {
     }
 
     private boolean isNameOk(String name) {
-        Product p;
 
         p = shopList.db.productDao().fetchProductByName(name);
 
-/*        if (p != null) {
-            if (name != p.getName()) {
-                return name.length() <= 7;
-            } else {
-                return false;
-            }
-        } else {
+        if (p instanceof Product) {
             return false;
-        }*/
-
-        /*return p == null ||
-                p != null && p.getName().length() <= 7 && p.getName() != name;*/
-        return true;
+        } else {
+            return true;
+        }
     }
 
 
     @Override
     public boolean isNamevalid(String name) {
         if (isNameOk(name)) {
-            return name != null && name != "" && !name.isEmpty() && name.length() >= 7;
+            return name != null && name != "" && !name.isEmpty();
         }
         return false;
     }
@@ -59,10 +50,7 @@ public class ValidateImpl implements Validate {
 
         if (checkImage) {
             MESSAGE = "para salvar capture a foto por favor!";
-        } else if (name.length() < 7) {
-            MESSAGE = "nome do produto tem que ser menor que 8";
-
-        } else if (p != null) {
+        } else if (p instanceof Product) {
             MESSAGE = "produto com esse nome ja existe";
         } else {
             MESSAGE = "para salvar digite nome do produto!";

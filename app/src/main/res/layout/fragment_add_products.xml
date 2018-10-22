@@ -15,10 +15,11 @@
 
         <TextView
             android:id="@+id/escolha_seu_produto_produto"
-            style="@style/ContentText"
+            style="@style/tv_ContentText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_marginTop="20dp"
             android:text="Adicionar produto!!" />
 
         <ImageView

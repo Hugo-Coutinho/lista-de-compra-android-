@@ -4,11 +4,22 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.example.administradorlocal.listadecompras.R;
+import com.example.administradorlocal.listadecompras.adapter.ProductListAdapter;
+import com.example.administradorlocal.listadecompras.adapter.ShowProductListAdapter;
+import com.example.administradorlocal.listadecompras.entity.ShoppingList;
+import com.example.administradorlocal.listadecompras.views.shopList;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +40,11 @@ public class ListProductsFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private Toolbar toolbar;
+    private ListView lv;
+    private View view;
+    private List<ShoppingList> productList;
+    private ShowProductListAdapter productListAdapter;
 
     public ListProductsFragment() {
         // Required empty public constructor
@@ -65,8 +81,27 @@ public class ListProductsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list_products, container, false);
+        this.view = inflater.inflate(R.layout.fragment_list_products, container, false);
+
+        lv = this.view.findViewById(R.id.lv_showListProduct);
+        this.productList = shopList.db.ShoppingListDao().findAll();
+        productListAdapter = new ShowProductListAdapter(productList, this.getContext());
+        toolbar = this.view.findViewById(R.id.toolbar);
+
+        toolbarConfig();
+
+        return this.view;
     }
+
+    private void toolbarConfig() {
+        lv.setAdapter(productListAdapter);
+        if (productList.size() > 0) {
+            toolbar.setTitle("lista de compra: " + DateFormat.format("dd/MM/yyyy", new Date(productList.get(0).getDate())).toString());
+        } else {
+            toolbar.setTitle("crie sua lista de compra");
+        }
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
