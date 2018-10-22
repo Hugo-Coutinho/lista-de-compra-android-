@@ -7,17 +7,27 @@ import android.view.View;
 
 import com.example.administradorlocal.listadecompras.R;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        timer();
     }
 
-
-    public void entrar(View view) {
-        Intent intent = new Intent(this, shopList.class);
-        startActivity(intent);
+    public void timer() {
+        new Timer().schedule(new TimerTask() {
+            public void run() {
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        startActivity(new Intent(MainActivity.this, shopList.class));
+                    }
+                });
+            }
+        }, 3000);
     }
 }
