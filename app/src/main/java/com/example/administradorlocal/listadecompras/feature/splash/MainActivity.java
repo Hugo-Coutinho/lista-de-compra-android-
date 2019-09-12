@@ -1,11 +1,11 @@
-package com.example.administradorlocal.listadecompras.views;
+package com.example.administradorlocal.listadecompras.feature.splash;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 
 import com.example.administradorlocal.listadecompras.R;
+import com.example.administradorlocal.listadecompras.feature.main.shopList;
 
 import java.util.Timer;
 import java.util.TimerTask;

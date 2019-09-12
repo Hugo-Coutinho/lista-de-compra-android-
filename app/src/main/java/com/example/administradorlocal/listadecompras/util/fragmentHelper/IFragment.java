@@ -1,4 +1,4 @@
-package com.example.administradorlocal.listadecompras.controller;
+package com.example.administradorlocal.listadecompras.util.fragmentHelper;
 
 import android.support.v4.app.FragmentManager;
 

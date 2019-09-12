@@ -1,10 +1,9 @@
-package com.example.administradorlocal.listadecompras.fragment;
+package com.example.administradorlocal.listadecompras.feature.listProducts.fragment;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -13,10 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.administradorlocal.listadecompras.R;
-import com.example.administradorlocal.listadecompras.adapter.ProductListAdapter;
-import com.example.administradorlocal.listadecompras.adapter.ShowProductListAdapter;
-import com.example.administradorlocal.listadecompras.entity.ShoppingList;
-import com.example.administradorlocal.listadecompras.views.shopList;
+import com.example.administradorlocal.listadecompras.feature.listProducts.adapter.ShowProductListAdapter;
+import com.example.administradorlocal.listadecompras.persistence.entity.ShoppingList;
+import com.example.administradorlocal.listadecompras.feature.main.shopList;
 
 import java.util.Date;
 import java.util.List;

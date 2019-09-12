@@ -1,4 +1,4 @@
-package com.example.administradorlocal.listadecompras.util;
+package com.example.administradorlocal.listadecompras.util.alertDialog;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 
-import com.example.administradorlocal.listadecompras.controller.IFragment;
+import com.example.administradorlocal.listadecompras.util.fragmentHelper.IFragment;
 
 public class AlertDialogImpl implements IAlertDialog {
 

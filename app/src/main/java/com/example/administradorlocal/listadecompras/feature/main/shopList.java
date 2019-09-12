@@ -1,4 +1,4 @@
-package com.example.administradorlocal.listadecompras.views;
+package com.example.administradorlocal.listadecompras.feature.main;
 
 import android.arch.persistence.room.Room;
 import android.net.Uri;
@@ -11,14 +11,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.example.administradorlocal.listadecompras.R;
-import com.example.administradorlocal.listadecompras.fragment.AddProductsFragment;
-import com.example.administradorlocal.listadecompras.fragment.CreateProductsFragment;
-import com.example.administradorlocal.listadecompras.fragment.ListProductsFragment;
-import com.example.administradorlocal.listadecompras.persistence.Database;
+import com.example.administradorlocal.listadecompras.feature.addProducts.AddProductsFragment;
+import com.example.administradorlocal.listadecompras.feature.createProducts.fragment.CreateProductsFragment;
+import com.example.administradorlocal.listadecompras.feature.listProducts.fragment.ListProductsFragment;
+import com.example.administradorlocal.listadecompras.persistence.database.Database;
 
 
 public class shopList extends AppCompatActivity implements

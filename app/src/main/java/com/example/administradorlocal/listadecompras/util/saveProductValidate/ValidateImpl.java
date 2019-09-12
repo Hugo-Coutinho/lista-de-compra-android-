@@ -1,9 +1,9 @@
-package com.example.administradorlocal.listadecompras.util;
+package com.example.administradorlocal.listadecompras.util.saveProductValidate;
 
 import android.graphics.Bitmap;
 
-import com.example.administradorlocal.listadecompras.entity.Product;
-import com.example.administradorlocal.listadecompras.views.shopList;
+import com.example.administradorlocal.listadecompras.persistence.entity.Product;
+import com.example.administradorlocal.listadecompras.feature.main.shopList;
 
 public class ValidateImpl implements Validate {
 

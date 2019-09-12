@@ -1,4 +1,4 @@
-package com.example.administradorlocal.listadecompras.util;
+package com.example.administradorlocal.listadecompras.util.saveProductValidate;
 
 import android.graphics.Bitmap;
 

@@ -1,13 +1,11 @@
-package com.example.administradorlocal.listadecompras.fragment;
+package com.example.administradorlocal.listadecompras.feature.createProducts.fragment;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -16,16 +14,16 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.administradorlocal.listadecompras.R;
-import com.example.administradorlocal.listadecompras.adapter.ProductListAdapter;
-import com.example.administradorlocal.listadecompras.controller.CtrlFragment;
-import com.example.administradorlocal.listadecompras.controller.IFragment;
-import com.example.administradorlocal.listadecompras.entity.Product;
-import com.example.administradorlocal.listadecompras.entity.ShoppingList;
-import com.example.administradorlocal.listadecompras.util.AlertDialogImpl;
-import com.example.administradorlocal.listadecompras.util.IAlertDialog;
-import com.example.administradorlocal.listadecompras.views.shopList;
+import com.example.administradorlocal.listadecompras.feature.createProducts.adapter.ProductListAdapter;
+import com.example.administradorlocal.listadecompras.util.fragmentHelper.CtrlFragment;
+import com.example.administradorlocal.listadecompras.util.fragmentHelper.IFragment;
+import com.example.administradorlocal.listadecompras.feature.listProducts.fragment.ListProductsFragment;
+import com.example.administradorlocal.listadecompras.persistence.entity.Product;
+import com.example.administradorlocal.listadecompras.persistence.entity.ShoppingList;
+import com.example.administradorlocal.listadecompras.util.alertDialog.AlertDialogImpl;
+import com.example.administradorlocal.listadecompras.util.alertDialog.IAlertDialog;
+import com.example.administradorlocal.listadecompras.feature.main.shopList;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

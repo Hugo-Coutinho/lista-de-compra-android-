@@ -1,4 +1,4 @@
-package com.example.administradorlocal.listadecompras.entity;
+package com.example.administradorlocal.listadecompras.persistence.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -6,10 +6,8 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-
-@Entity(tableName = "ShoppingList")
-public class ShoppingList {
-
+@Entity(tableName = "product")
+public class Product {
 
     @NonNull
     @PrimaryKey(autoGenerate = true)
@@ -18,26 +16,23 @@ public class ShoppingList {
     private String name;
     @ColumnInfo(name = "image")
     private String image;
-    @ColumnInfo(name = "date")
-    private long date;
+
 
     @Ignore
-    public ShoppingList() {
+    public Product() {
     }
 
-    public ShoppingList(String name, String image, long date) {
+    public Product(String name, String image) {
         this.name = name;
         this.image = image;
-        this.date = date;
     }
 
     @Override
     public String toString() {
-        return "ShoppingList{" +
+        return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", image='" + image + '\'' +
-                ", date=" + date +
+                ", image=" + image +
                 '}';
     }
 
@@ -65,13 +60,5 @@ public class ShoppingList {
     public void setImage(String image) {
         this.image = image;
     }
-
-
-    public long getDate() {
-        return date;
-    }
-
-    public void setDate(long date) {
-        this.date = date;
-    }
 }
+

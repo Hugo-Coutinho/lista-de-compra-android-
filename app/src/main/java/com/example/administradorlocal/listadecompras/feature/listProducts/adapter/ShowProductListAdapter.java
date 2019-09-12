@@ -1,4 +1,4 @@
-package com.example.administradorlocal.listadecompras.adapter;
+package com.example.administradorlocal.listadecompras.feature.listProducts.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,9 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administradorlocal.listadecompras.R;
-import com.example.administradorlocal.listadecompras.entity.ShoppingList;
-import com.example.administradorlocal.listadecompras.util.ImageManipulate;
-import com.example.administradorlocal.listadecompras.util.ImageManipulateImpl;
+import com.example.administradorlocal.listadecompras.persistence.entity.ShoppingList;
+import com.example.administradorlocal.listadecompras.util.imageHelper.ImageManipulate;
+import com.example.administradorlocal.listadecompras.util.imageHelper.ImageManipulateImpl;
 
 import java.util.ArrayList;
 import java.util.List;

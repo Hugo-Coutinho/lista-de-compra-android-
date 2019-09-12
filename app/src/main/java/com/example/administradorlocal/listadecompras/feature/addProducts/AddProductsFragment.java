@@ -1,19 +1,11 @@
-package com.example.administradorlocal.listadecompras.fragment;
+package com.example.administradorlocal.listadecompras.feature.addProducts;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,16 +16,17 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.administradorlocal.listadecompras.R;
-import com.example.administradorlocal.listadecompras.controller.CtrlFragment;
-import com.example.administradorlocal.listadecompras.controller.IFragment;
-import com.example.administradorlocal.listadecompras.entity.Product;
-import com.example.administradorlocal.listadecompras.util.AlertDialogImpl;
-import com.example.administradorlocal.listadecompras.util.IAlertDialog;
-import com.example.administradorlocal.listadecompras.util.ImageManipulate;
-import com.example.administradorlocal.listadecompras.util.ImageManipulateImpl;
-import com.example.administradorlocal.listadecompras.util.Validate;
-import com.example.administradorlocal.listadecompras.util.ValidateImpl;
-import com.example.administradorlocal.listadecompras.views.shopList;
+import com.example.administradorlocal.listadecompras.util.fragmentHelper.CtrlFragment;
+import com.example.administradorlocal.listadecompras.util.fragmentHelper.IFragment;
+import com.example.administradorlocal.listadecompras.feature.createProducts.fragment.CreateProductsFragment;
+import com.example.administradorlocal.listadecompras.persistence.entity.Product;
+import com.example.administradorlocal.listadecompras.util.alertDialog.AlertDialogImpl;
+import com.example.administradorlocal.listadecompras.util.alertDialog.IAlertDialog;
+import com.example.administradorlocal.listadecompras.util.imageHelper.ImageManipulate;
+import com.example.administradorlocal.listadecompras.util.imageHelper.ImageManipulateImpl;
+import com.example.administradorlocal.listadecompras.util.saveProductValidate.Validate;
+import com.example.administradorlocal.listadecompras.util.saveProductValidate.ValidateImpl;
+import com.example.administradorlocal.listadecompras.feature.main.shopList;
 
 /**
  * A simple {@link Fragment} subclass.

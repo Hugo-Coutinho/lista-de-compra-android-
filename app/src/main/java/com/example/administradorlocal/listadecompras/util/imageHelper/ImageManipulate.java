@@ -1,4 +1,4 @@
-package com.example.administradorlocal.listadecompras.util;
+package com.example.administradorlocal.listadecompras.util.imageHelper;
 
 import android.content.Context;
 import android.graphics.Bitmap;

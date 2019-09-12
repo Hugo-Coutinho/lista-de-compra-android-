@@ -1,13 +1,13 @@
-package com.example.administradorlocal.listadecompras.controller;
+package com.example.administradorlocal.listadecompras.util.fragmentHelper;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.example.administradorlocal.listadecompras.R;
-import com.example.administradorlocal.listadecompras.views.shopList;
+import com.example.administradorlocal.listadecompras.feature.main.shopList;
 
-public class CtrlFragment implements com.example.administradorlocal.listadecompras.controller.IFragment {
+public class CtrlFragment implements com.example.administradorlocal.listadecompras.util.fragmentHelper.IFragment {
 
     @Override
     public void goToFragment(Fragment frg, FragmentManager manager, Integer navigation) {
