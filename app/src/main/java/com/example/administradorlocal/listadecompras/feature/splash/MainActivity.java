@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.administradorlocal.listadecompras.R;
-import com.example.administradorlocal.listadecompras.feature.main.shopList;
+import com.example.administradorlocal.listadecompras.feature.main.main_container;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 MainActivity.this.runOnUiThread(new Runnable() {
                     public void run() {
-                        startActivity(new Intent(MainActivity.this, shopList.class));
+                        startActivity(new Intent(MainActivity.this, main_container.class));
                     }
                 });
             }

@@ -16,14 +16,14 @@ import android.widget.TextView;
 import com.example.administradorlocal.listadecompras.R;
 import com.example.administradorlocal.listadecompras.feature.addProducts.AddProductsFragment;
 import com.example.administradorlocal.listadecompras.feature.createProducts.fragment.CreateProductsFragment;
-import com.example.administradorlocal.listadecompras.feature.listProducts.fragment.ListProductsFragment;
+import com.example.administradorlocal.listadecompras.feature.HomeShoppingList.fragment.HomeShoppingListFragment;
 import com.example.administradorlocal.listadecompras.persistence.database.Database;
 
 
-public class shopList extends AppCompatActivity implements
+public class main_container extends AppCompatActivity implements
         AddProductsFragment.OnFragmentInteractionListener,
         CreateProductsFragment.OnFragmentInteractionListener,
-        ListProductsFragment.OnFragmentInteractionListener {
+        HomeShoppingListFragment.OnFragmentInteractionListener {
 
     private TextView mTextMessage;
     private ActionBar toolbar;
@@ -41,7 +41,7 @@ public class shopList extends AppCompatActivity implements
                 case R.id.navigation_list:
                     //mTextMessage.setText(R.string.title_list);
                     /*toolbar.setTitle("lista");*/
-                    fragment = new ListProductsFragment();
+                    fragment = new HomeShoppingListFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_add:
@@ -64,7 +64,7 @@ public class shopList extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shop_list);
+        setContentView(R.layout.activity_main_container);
 
         toolbar = getSupportActionBar();
         this.mBtmView = findViewById(R.id.navigation);
@@ -75,7 +75,7 @@ public class shopList extends AppCompatActivity implements
         db = Room.databaseBuilder(getApplicationContext(), Database.class, "productdb").allowMainThreadQueries().fallbackToDestructiveMigration().build();
 
         /*toolbar.setTitle("shop");*/
-        loadFragment(new ListProductsFragment());
+        loadFragment(new HomeShoppingListFragment());
     }
 
     public static void setBottomNavigationViewChecked(Integer n) {
@@ -119,7 +119,7 @@ public class shopList extends AppCompatActivity implements
 
         // Otherwise defer to system default behavior.
         mBtmView.getMenu().findItem(R.id.navigation_list).setChecked(true);
-        loadFragment(new ListProductsFragment());
+        loadFragment(new HomeShoppingListFragment());
     }
 
 

@@ -60,7 +60,7 @@ public class ProductListAdapter extends BaseAdapter {
         if (convertView == null) {
 
             LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(ctx.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.list_view, null);
+            convertView = inflater.inflate(R.layout.list_view,parent,false);
         }
         ImageView iv_show = convertView.findViewById(R.id.iv_show);
         tv_showName = convertView.findViewById(R.id.tv_showName);

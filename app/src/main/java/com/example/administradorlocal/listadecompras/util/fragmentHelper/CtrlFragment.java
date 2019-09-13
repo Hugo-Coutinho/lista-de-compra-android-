@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.example.administradorlocal.listadecompras.R;
-import com.example.administradorlocal.listadecompras.feature.main.shopList;
+import com.example.administradorlocal.listadecompras.feature.main.main_container;
 
 public class CtrlFragment implements com.example.administradorlocal.listadecompras.util.fragmentHelper.IFragment {
 
@@ -14,7 +14,7 @@ public class CtrlFragment implements com.example.administradorlocal.listadecompr
 
 
         if (navigation == 0 || navigation == 1 || navigation == 2) {
-            shopList.setBottomNavigationViewChecked(navigation);
+            main_container.setBottomNavigationViewChecked(navigation);
         }
 
         FragmentManager fm = manager;

@@ -26,7 +26,7 @@ import com.example.administradorlocal.listadecompras.util.imageHelper.ImageManip
 import com.example.administradorlocal.listadecompras.util.imageHelper.ImageManipulateImpl;
 import com.example.administradorlocal.listadecompras.util.saveProductValidate.Validate;
 import com.example.administradorlocal.listadecompras.util.saveProductValidate.ValidateImpl;
-import com.example.administradorlocal.listadecompras.feature.main.shopList;
+import com.example.administradorlocal.listadecompras.feature.main.main_container;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -138,7 +138,7 @@ public class AddProductsFragment extends Fragment {
 
                 if (!validate.isImageEmpty(img) && validate.isNamevalid(EditProductName.getText().toString())) {
                     imageManipulate.setImage(mBase, EditProductName.getText().toString(), img);
-                    shopList.db.productDao().insertProduct(new Product(EditProductName.getText().toString(),
+                    main_container.db.productDao().insertProduct(new Product(EditProductName.getText().toString(),
                             imageManipulate.getImagePath(mBase, EditProductName.getText().toString())));
                     Toast.makeText(getActivity(), messageToast, Toast.LENGTH_SHORT).show();
                     toFragment(new CreateProductsFragment(), 2);

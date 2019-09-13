@@ -1,4 +1,4 @@
-package com.example.administradorlocal.listadecompras.feature.listProducts.adapter;
+package com.example.administradorlocal.listadecompras.feature.HomeShoppingList.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -63,7 +63,7 @@ public class ShowProductListAdapter extends BaseAdapter {
 
         iv_showImage.setImageURI(imageManipulate.getImagebyUri(ctx, product.getImage()));
         tv_show.setText(product.getName());
-
+        
         return convertView;
 
     }

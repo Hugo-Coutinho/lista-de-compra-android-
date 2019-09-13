@@ -3,7 +3,7 @@ package com.example.administradorlocal.listadecompras.util.saveProductValidate;
 import android.graphics.Bitmap;
 
 import com.example.administradorlocal.listadecompras.persistence.entity.Product;
-import com.example.administradorlocal.listadecompras.feature.main.shopList;
+import com.example.administradorlocal.listadecompras.feature.main.main_container;
 
 public class ValidateImpl implements Validate {
 
@@ -16,7 +16,7 @@ public class ValidateImpl implements Validate {
 
     private boolean isNameOk(String name) {
 
-        p = shopList.db.productDao().fetchProductByName(name);
+        p = main_container.db.productDao().fetchProductByName(name);
 
         if (p instanceof Product) {
             return false;

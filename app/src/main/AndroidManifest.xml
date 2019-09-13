@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".feature.main.shopList"
+            android:name=".feature.main.main_container"
             android:label="@string/title_activity_shop_list"></activity>
     </application>
 

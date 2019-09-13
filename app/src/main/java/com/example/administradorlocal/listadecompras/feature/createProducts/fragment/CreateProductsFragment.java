@@ -15,14 +15,14 @@ import android.widget.ListView;
 
 import com.example.administradorlocal.listadecompras.R;
 import com.example.administradorlocal.listadecompras.feature.createProducts.adapter.ProductListAdapter;
+import com.example.administradorlocal.listadecompras.feature.HomeShoppingList.fragment.HomeShoppingListFragment;
 import com.example.administradorlocal.listadecompras.util.fragmentHelper.CtrlFragment;
 import com.example.administradorlocal.listadecompras.util.fragmentHelper.IFragment;
-import com.example.administradorlocal.listadecompras.feature.listProducts.fragment.ListProductsFragment;
 import com.example.administradorlocal.listadecompras.persistence.entity.Product;
 import com.example.administradorlocal.listadecompras.persistence.entity.ShoppingList;
 import com.example.administradorlocal.listadecompras.util.alertDialog.AlertDialogImpl;
 import com.example.administradorlocal.listadecompras.util.alertDialog.IAlertDialog;
-import com.example.administradorlocal.listadecompras.feature.main.shopList;
+import com.example.administradorlocal.listadecompras.feature.main.main_container;
 
 import java.util.Date;
 import java.util.List;
@@ -95,7 +95,7 @@ public class CreateProductsFragment extends Fragment implements BottomNavigation
 
         this.ctrlFragment = new CtrlFragment();
         this.alertDialog = new AlertDialogImpl();
-        this.productList = shopList.db.productDao().findAll();
+        this.productList = main_container.db.productDao().findAll();
         ListView lv = this.view.findViewById(R.id.listView);
         productListAdapter = new ProductListAdapter(productList, this.getContext());
         Toolbar toolbar = this.view.findViewById(R.id.toolbar);
@@ -118,7 +118,7 @@ public class CreateProductsFragment extends Fragment implements BottomNavigation
                 // Do onlick on menu action here
                 if (products.size() > 0) {
                     createList(products);
-                    ctrlFragment.goToFragment(new ListProductsFragment(), this.getFragmentManager(), 0);
+                    ctrlFragment.goToFragment(new HomeShoppingListFragment(), this.getFragmentManager(), 0);
                     Toast.makeText(getContext(), "lista criada com sucesso!!", Toast.LENGTH_LONG).show();
                 } else {
                     this.alertDialog.alertPositiveButton("para criar a lista selecione os produtos", getContext(), 2, new CreateProductsFragment(), getFragmentManager(), ctrlFragment);
@@ -140,25 +140,25 @@ public class CreateProductsFragment extends Fragment implements BottomNavigation
     }
 
     private void deleteList() {
-        shopList.db.ShoppingListDao().deleteAll();
+        main_container.db.ShoppingListDao().deleteAll();
     }
 
     private void createList(List<Product> p) {
         deleteList();
         for (Product pr : p) {
-            shopList.db.ShoppingListDao().insertListProduct(new ShoppingList(pr.getName(), pr.getImage(), new Date().getTime()));
+            main_container.db.ShoppingListDao().insertListProduct(new ShoppingList(pr.getName(), pr.getImage(), new Date().getTime()));
         }
 
     }
 
     private void deleteAllProducts(List<Product> p) {
-        List<ShoppingList> shop = shopList.db.ShoppingListDao().findAll();
+        List<ShoppingList> shop = main_container.db.ShoppingListDao().findAll();
 
         for (Product x : p) {
-            shopList.db.productDao().delete(x);
+            main_container.db.productDao().delete(x);
             for (ShoppingList s : shop) {
                 if (s.getName().equals(x.getName())) {
-                    shopList.db.ShoppingListDao().delete(s);
+                    main_container.db.ShoppingListDao().delete(s);
                 }
             }
         }
