@@ -7,7 +7,7 @@ import com.example.administradorlocal.listadecompras.persistence.entity.Shopping
 import com.example.administradorlocal.listadecompras.persistence.dao.ProductDao;
 import com.example.administradorlocal.listadecompras.persistence.dao.ShoppingListDao;
 
-@android.arch.persistence.room.Database(entities = {Product.class, ShoppingList.class}, version = 4)
+@android.arch.persistence.room.Database(entities = {Product.class, ShoppingList.class}, version = 4, exportSchema = false)
 public abstract class Database extends RoomDatabase {
 
     public abstract ProductDao productDao();

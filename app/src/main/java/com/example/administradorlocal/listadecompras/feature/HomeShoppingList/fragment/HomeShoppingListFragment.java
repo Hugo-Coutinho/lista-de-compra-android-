@@ -15,6 +15,7 @@ import com.example.administradorlocal.listadecompras.R;
 import com.example.administradorlocal.listadecompras.feature.HomeShoppingList.adapter.ShowProductListAdapter;
 import com.example.administradorlocal.listadecompras.persistence.entity.ShoppingList;
 import com.example.administradorlocal.listadecompras.feature.main.main_container;
+import com.example.administradorlocal.listadecompras.util.toolbar.HomeToolbar;
 
 import java.util.Date;
 import java.util.List;
@@ -79,26 +80,17 @@ public class HomeShoppingListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.fragment_home_shopping_list, container,false);
-
         lv = this.view.findViewById(R.id.lv_showListProduct);
         this.productList = main_container.db.ShoppingListDao().findAll();
         productListAdapter = new ShowProductListAdapter(productList, this.getContext());
-        toolbar = this.view.findViewById(R.id.toolbar_common);
-
-        toolbarConfig();
-
+        this.configureToolbar();
+        lv.setAdapter(productListAdapter);
         return this.view;
     }
 
-    private void toolbarConfig() {
-        lv.setAdapter(productListAdapter);
-        if (productList.size() > 0) {
-            toolbar.setTitle(getString(R.string.home_toolbar_list) + " " + DateFormat.format("dd/MM/yyyy", new Date(productList.get(0).getDate())).toString());
-        } else {
-            toolbar.setTitle(getString(R.string.home_toolbar_empty));
-        }
+    private void configureToolbar() {
+        new HomeToolbar(this.view,this.productList.size() == 0, this.getContext()).configureTitle();
     }
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

@@ -23,6 +23,7 @@ import com.example.administradorlocal.listadecompras.persistence.entity.Shopping
 import com.example.administradorlocal.listadecompras.util.alertDialog.AlertDialogImpl;
 import com.example.administradorlocal.listadecompras.util.alertDialog.IAlertDialog;
 import com.example.administradorlocal.listadecompras.feature.main.main_container;
+import com.example.administradorlocal.listadecompras.util.toolbar.CreateProductToolbar;
 
 import java.util.Date;
 import java.util.List;
@@ -98,14 +99,16 @@ public class CreateProductsFragment extends Fragment implements BottomNavigation
         this.productList = main_container.db.productDao().findAll();
         ListView lv = this.view.findViewById(R.id.lv_showListProduct);
         productListAdapter = new ProductListAdapter(productList, this.getContext());
-        Toolbar toolbar = this.view.findViewById(R.id.toolbar_common);
-
-        toolbar.setTitle(getString(R.string.home_toolbar_empty));
+        this.configureToolbar();
         lv.setAdapter(productListAdapter);
-
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         // Inflate the layout for this fragment
         return this.view;
+    }
+
+    private void configureToolbar() {
+        final CreateProductToolbar createProductToolbar  = new CreateProductToolbar(this.view,this.getContext());
+        createProductToolbar.configureTitle();
+        ((AppCompatActivity) getActivity()).setSupportActionBar(createProductToolbar.getToolbar());
     }
 
     @Override
