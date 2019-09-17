@@ -96,11 +96,11 @@ public class CreateProductsFragment extends Fragment implements BottomNavigation
         this.ctrlFragment = new CtrlFragment();
         this.alertDialog = new AlertDialogImpl();
         this.productList = main_container.db.productDao().findAll();
-        ListView lv = this.view.findViewById(R.id.listView);
+        ListView lv = this.view.findViewById(R.id.lv_showListProduct);
         productListAdapter = new ProductListAdapter(productList, this.getContext());
-        Toolbar toolbar = this.view.findViewById(R.id.toolbar);
+        Toolbar toolbar = this.view.findViewById(R.id.toolbar_common);
 
-        toolbar.setTitle("criar lista de compra");
+        toolbar.setTitle(getString(R.string.home_toolbar_empty));
         lv.setAdapter(productListAdapter);
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);

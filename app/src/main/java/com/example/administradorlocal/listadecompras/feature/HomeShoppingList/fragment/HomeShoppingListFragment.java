@@ -78,13 +78,12 @@ public class HomeShoppingListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        this.view = inflater.inflate(R.layout.fragment_home_shopping_list, container, false);
+        this.view = inflater.inflate(R.layout.fragment_home_shopping_list, container,false);
 
         lv = this.view.findViewById(R.id.lv_showListProduct);
         this.productList = main_container.db.ShoppingListDao().findAll();
         productListAdapter = new ShowProductListAdapter(productList, this.getContext());
-        toolbar = this.view.findViewById(R.id.toolbar);
+        toolbar = this.view.findViewById(R.id.toolbar_common);
 
         toolbarConfig();
 
@@ -94,9 +93,9 @@ public class HomeShoppingListFragment extends Fragment {
     private void toolbarConfig() {
         lv.setAdapter(productListAdapter);
         if (productList.size() > 0) {
-            toolbar.setTitle("lista de compra: " + DateFormat.format("dd/MM/yyyy", new Date(productList.get(0).getDate())).toString());
+            toolbar.setTitle(getString(R.string.home_toolbar_list) + " " + DateFormat.format("dd/MM/yyyy", new Date(productList.get(0).getDate())).toString());
         } else {
-            toolbar.setTitle("crie sua lista de compra");
+            toolbar.setTitle(getString(R.string.home_toolbar_empty));
         }
     }
 
