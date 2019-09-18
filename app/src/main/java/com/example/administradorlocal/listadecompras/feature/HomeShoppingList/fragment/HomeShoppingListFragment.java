@@ -4,8 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +14,6 @@ import com.example.administradorlocal.listadecompras.feature.HomeShoppingList.ad
 import com.example.administradorlocal.listadecompras.persistence.entity.ShoppingList;
 import com.example.administradorlocal.listadecompras.feature.main.main_container;
 import com.example.administradorlocal.listadecompras.util.toolbar.HomeToolbar;
-
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,9 +35,10 @@ public class HomeShoppingListFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    private Toolbar toolbar;
     private ListView lv;
     private View view;
+    private View includeListEmpty;
+    private View includeList;
     private List<ShoppingList> productList;
     private ShowProductListAdapter productListAdapter;
 
@@ -79,14 +76,47 @@ public class HomeShoppingListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.view = inflater.inflate(R.layout.fragment_home_shopping_list, container,false);
-        lv = this.view.findViewById(R.id.lv_showListProduct);
-        this.productList = main_container.db.ShoppingListDao().findAll();
-        productListAdapter = new ShowProductListAdapter(productList, this.getContext());
+        super.onCreateView(inflater,container,savedInstanceState);
+        this.setupFragment(inflater,container);
         this.configureToolbar();
         lv.setAdapter(productListAdapter);
         return this.view;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        this.startHomeVisibility();
+    }
+
+    private void startHomeVisibility() {
+        if (this.productList.size() == 0) {
+            this.setEmptyListVisibility();
+            return;
+        }
+        this.setListVisibility();
+    }
+
+    private void setListVisibility() {
+        includeList.setVisibility(View.VISIBLE);
+        includeListEmpty.setVisibility(View.GONE);
+    }
+
+    private void setEmptyListVisibility() {
+        includeList.setVisibility(View.GONE);
+        includeListEmpty.setVisibility(View.VISIBLE);
+    }
+
+    private void setupFragment(LayoutInflater inflater, ViewGroup container) {
+        this.view = inflater.inflate(R.layout.fragment_home_shopping_list, container,false);
+        this.includeList = this.view.findViewById(R.id.include_listview);
+        this.includeListEmpty = this.view.findViewById(R.id.include_emptylist);
+        this.lv = this.view.findViewById(R.id.lv_showListProduct);
+        this.productList = main_container.db.ShoppingListDao().findAll();
+        this.productListAdapter = new ShowProductListAdapter(productList, this.getContext());
+    }
+
+
 
     private void configureToolbar() {
         new HomeToolbar(this.view,this.productList.size() == 0, this.getContext()).configureTitle();

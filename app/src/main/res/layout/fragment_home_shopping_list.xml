@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context=".feature.createProducts.fragment.CreateProductsFragment">
-    <include layout="@layout/toolbar_common"/>
-    <include layout="@layout/listview_common"/>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include android:id="@+id/include_toolbar"
+        layout="@layout/toolbar_common"/>
+
+    <include android:id="@+id/include_listview"
+        layout="@layout/listview_common"/>
+
+    <include android:id="@+id/include_emptylist"
+        layout="@layout/shoppinglist_empty_common"/>
 </LinearLayout>

@@ -109,27 +109,15 @@ public class AddProductsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        p = new Product();
-        this.alertDialog = new AlertDialogImpl();
-        this.ctrlFragment = new CtrlFragment();
-        this.mBase = this.getContext().getApplicationContext();
-        this.imageManipulate = new ImageManipulateImpl();
-        this.validate = new ValidateImpl();
-        this.view = inflater.inflate(R.layout.fragment_add_products, container, false);
+        super.onCreateView(inflater,container,savedInstanceState);
+        this.setupFragment(inflater,container);
+        this.setupPictureAction();
+        this.configureSaveProductAction();
+        // Inflate the layout for this fragment
+        return this.view;
+    }
 
-        this.btnSearchImage = this.view.findViewById(R.id.btn_take_picture);
-        this.btnSalvar = this.view.findViewById(R.id.btn_save);
-        this.EditProductName = this.view.findViewById(R.id.editTxt_product_name);
-        this.btnSearchImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                startActivityForResult(intent, 0);
-
-
-            }
-        });
-
+    private void configureSaveProductAction() {
         this.btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,10 +137,33 @@ public class AddProductsFragment extends Fragment {
 
             }
         });
-
-        // Inflate the layout for this fragment
-        return this.view;
     }
+
+
+        private void setupPictureAction() {
+        this.btnSearchImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                startActivityForResult(intent, 0);
+
+
+            }
+        });
+    }
+
+    private void setupFragment(LayoutInflater inflater, ViewGroup container) {
+        this.alertDialog = new AlertDialogImpl();
+        this.ctrlFragment = new CtrlFragment();
+        this.mBase = this.getContext().getApplicationContext();
+        this.imageManipulate = new ImageManipulateImpl();
+        this.validate = new ValidateImpl();
+        this.view = inflater.inflate(R.layout.fragment_add_products, container, false);
+        this.btnSearchImage = this.view.findViewById(R.id.btn_take_picture);
+        this.btnSalvar = this.view.findViewById(R.id.btn_save);
+        this.EditProductName = this.view.findViewById(R.id.editTxt_product_name);
+    }
+
 
 
     private void toFragment(Fragment frg, Integer navigation) {

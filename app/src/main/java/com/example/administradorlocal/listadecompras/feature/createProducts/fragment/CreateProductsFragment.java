@@ -52,6 +52,9 @@ public class CreateProductsFragment extends Fragment implements BottomNavigation
     private OnFragmentInteractionListener mListener;
     private List<Product> productList;
     private View view;
+    private ListView lv;
+    private View includeListEmpty;
+    private View includeList;
     private ProductListAdapter productListAdapter;
     private IFragment ctrlFragment;
     private IAlertDialog alertDialog;
@@ -91,18 +94,46 @@ public class CreateProductsFragment extends Fragment implements BottomNavigation
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        this.view = inflater.inflate(R.layout.fragment_create_products, container, false);
-
-        this.ctrlFragment = new CtrlFragment();
-        this.alertDialog = new AlertDialogImpl();
-        this.productList = main_container.db.productDao().findAll();
-        ListView lv = this.view.findViewById(R.id.lv_showListProduct);
-        productListAdapter = new ProductListAdapter(productList, this.getContext());
+        this.setupFragment(inflater, container);
         this.configureToolbar();
         lv.setAdapter(productListAdapter);
         // Inflate the layout for this fragment
         return this.view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        this.startHomeVisibility();
+    }
+
+    private void setupFragment(LayoutInflater inflater, ViewGroup container) {
+        this.view = inflater.inflate(R.layout.fragment_create_products, container, false);
+        this.includeList = this.view.findViewById(R.id.include_listview);
+        this.includeListEmpty = this.view.findViewById(R.id.include_emptylist);
+        this.ctrlFragment = new CtrlFragment();
+        this.alertDialog = new AlertDialogImpl();
+        this.productList = main_container.db.productDao().findAll();
+        this.lv = this.view.findViewById(R.id.lv_showListProduct);
+        this.productListAdapter = new ProductListAdapter(productList, this.getContext());
+    }
+
+    private void startHomeVisibility() {
+        if (this.productList.size() == 0) {
+            this.setEmptyListVisibility();
+            return;
+        }
+        this.setListVisibility();
+    }
+
+    private void setListVisibility() {
+        includeList.setVisibility(View.VISIBLE);
+        includeListEmpty.setVisibility(View.GONE);
+    }
+
+    private void setEmptyListVisibility() {
+        includeList.setVisibility(View.GONE);
+        includeListEmpty.setVisibility(View.VISIBLE);
     }
 
     private void configureToolbar() {

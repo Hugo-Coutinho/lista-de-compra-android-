@@ -13,4 +13,6 @@
     <string name="txt_fontFamily">sans-serif-smallcaps</string>
     <string name="home_toolbar_empty">crie sua lista de compra</string>
     <string name="home_toolbar_list">lista de compra: </string>
+    <string name="home_listview_empty">Lista de compras Vazia</string>
+    <string name="createList_listview_empty">você não possui produtos para criar a lista de compras.</string>
 </resources>
