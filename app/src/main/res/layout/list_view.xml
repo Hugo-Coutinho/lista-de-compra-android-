@@ -20,8 +20,7 @@
         android:layout_toRightOf="@id/cb_item"
         android:layout_centerVertical="true"
         android:layout_marginLeft="24dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"/>
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/tv_showName"

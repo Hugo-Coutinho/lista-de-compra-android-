@@ -22,10 +22,11 @@ public class ProductListAdapter extends BaseAdapter {
 
     private List<Product> products;
     private Context ctx;
-
     private List<Product> productsChecked;
     private TextView tv_showName;
-    Product product;
+    private ImageManipulate imageManipulate = new ImageManipulateImpl();
+    private ImageView iv_show;
+    public Product product;
 
     public ProductListAdapter(List<Product> products, Context ctx) {
         this.products = products;
@@ -49,49 +50,56 @@ public class ProductListAdapter extends BaseAdapter {
         return position;
     }
 
+    @Override
+    public int getViewTypeCount() { return 500; }
+
+    @Override
+    public int getItemViewType(int position) { return position; }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-
-        product = products.get(position);
-        ImageManipulate imageManipulate = new ImageManipulateImpl();
-
+        this.product = products.get(position);
         if (convertView == null) {
-
-            LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(ctx.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.list_view,parent,false);
+            convertView = ((LayoutInflater) ctx.getSystemService(ctx.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.list_view, parent, false);
         }
-        ImageView iv_show = convertView.findViewById(R.id.iv_show);
-        tv_showName = convertView.findViewById(R.id.tv_showName);
-        final CheckBox cb_item = convertView.findViewById(R.id.cb_item);
+        this.setupView(convertView);
+        this.configureProduct();
+        this.configureCheckBox(convertView);
 
-        cb_item.setTag(product);
-        iv_show.setImageURI(imageManipulate.getImagebyUri(ctx, product.getImage()));
-        tv_showName.setText(product.getName());
+        return convertView;
+    }
+
+    private void configureCheckBox(View convertView) {
+        final CheckBox cb_item = convertView.findViewById(R.id.cb_item);
+        cb_item.setTag(this.product);
 
         cb_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Product p = (Product) cb_item.getTag();
                 if (cb_item.isChecked()) {
-                    Product p = (Product) cb_item.getTag();
                     productsChecked.add(p);
                     Toast.makeText(v.getContext(), p.getName(), Toast.LENGTH_SHORT).show();
                 } else {
-                    productsChecked.remove(product);
+                    productsChecked.remove(p);
                 }
             }
         });
-        return convertView;
+    }
+
+    private void configureProduct() {
+        this.iv_show.setImageURI(imageManipulate.getImagebyUri(ctx, product.getImage()));
+        this.tv_showName.setText(product.getName());
+    }
+
+    private void setupView(View convertView) {
+        this.iv_show = convertView.findViewById(R.id.iv_show);
+        this.tv_showName = convertView.findViewById(R.id.tv_showName);
     }
 
     public List<Product> getProductsChecked() {
         return productsChecked;
-    }
-
-    public void setProductsChecked(List<Product> productsChecked) {
-        this.productsChecked = productsChecked;
     }
 }
 
